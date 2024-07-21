@@ -1,6 +1,8 @@
 package com.SampleProjSpring.Demo.dto;
 
+import com.SampleProjSpring.Demo.annotations.EmployeeRoleValidation;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +16,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EmployeeDTO {
     private long Id;
+    @NotBlank(message = "name can not be blank")
+    @Size(min = 3 ,max = 10 , message = "name size should be greater than 3 and less than 10")
     private String name;
+
+    @NotBlank
+    @Email(message = "Email should be a valid email")
     private String email;
+
+    @Max(value = 80 , message = "age can not be greater than 80")
+    @Min(value = 18, message = "minage should be 18")
     private Integer age;
+
+    @NotBlank
+    //@Pattern(regexp = "^(ADMIN|USER)$")
+    //Also we can make our custom validation  for this
+    //like
+    @EmployeeRoleValidation
+    private String role;
+
+    @Past
     private LocalDate dateOfJoining;
+
     @JsonProperty("isActive")
     private Boolean isActive;
 
