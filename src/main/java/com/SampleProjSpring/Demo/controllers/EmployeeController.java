@@ -35,7 +35,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.findById(Id);
         return employeeDTO
             .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElseThrow(() -> new ResourceNotFoundException("Element not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Element not found with id: " + Id));
     }
 
     @GetMapping("/getAllEmp")
