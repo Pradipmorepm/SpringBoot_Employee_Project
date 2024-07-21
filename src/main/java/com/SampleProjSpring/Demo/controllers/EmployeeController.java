@@ -2,6 +2,7 @@ package com.SampleProjSpring.Demo.controllers;
 
 import com.SampleProjSpring.Demo.dto.EmployeeDTO;
 import com.SampleProjSpring.Demo.entities.EmployeeEntity;
+import com.SampleProjSpring.Demo.exceptions.ResourceNotFoundException;
 import com.SampleProjSpring.Demo.repositories.EmployeeRepository;
 import com.SampleProjSpring.Demo.sevices.EmployeeService;
 import jakarta.validation.Valid;
@@ -34,12 +35,9 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.findById(Id);
         return employeeDTO
             .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElseThrow(() -> new NoSuchElementException("Element not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Element not found"));
     }
-    @ExceptionHandler({NoSuchElementException.class})
-        public ResponseEntity<String> handleEmployeeNotFound(NoSuchElementException exception){
-        return new ResponseEntity<>("Employee Mot Found" , HttpStatus.NOT_FOUND);
-        }
+
     @GetMapping("/getAllEmp")
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees(){
 
