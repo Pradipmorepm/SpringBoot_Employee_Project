@@ -1,5 +1,6 @@
 package com.SampleProjSpring.Demo.dto;
 
+import com.SampleProjSpring.Demo.annotations.EmployeeAgeValidation;
 import com.SampleProjSpring.Demo.annotations.EmployeeRoleValidation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
@@ -24,6 +25,9 @@ public class EmployeeDTO {
     @Email(message = "Email should be a valid email")
     private String email;
 
+    //this is custom annotation for practice that will check for age should be prime
+
+    @EmployeeAgeValidation
     @Max(value = 80 , message = "age can not be greater than 80")
     @Min(value = 18, message = "minage should be 18")
     private Integer age;
